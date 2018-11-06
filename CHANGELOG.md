@@ -20,6 +20,7 @@ All notable changes to this project will be documented in this file.
 * Support Checkbox Multiple, Grid and Repeatable fields on Field model
 * Create services to submit, evaluate, upload files and get drafts from forms using ApioConsumer
 * Support forms with ThingScreenlet
+* Add Lexicon Theme for Form fields
 
 ### Refactor
 
