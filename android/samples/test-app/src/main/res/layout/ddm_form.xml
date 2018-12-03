@@ -7,7 +7,7 @@
 
     <com.liferay.mobile.screens.ddm.form.DDMFormScreenlet
         android:id="@+id/ddm_form_screenlet"
-        app:formInstanceId="38395"
+        app:formInstanceId="38105"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />

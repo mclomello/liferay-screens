@@ -19,6 +19,7 @@ All notable changes to this project will be documented in this file.
 * Support workflow list with ThingScreenlet
 * Support Checkbox Multiple, Grid and Repeatable fields on Field model
 * Create services to submit, evaluate, upload files and get drafts from forms using ApioConsumer
+* Support onPageRendered method on PdfDisplayView
 * Support forms with ThingScreenlet
 * Add Lexicon Theme for Form fields
 
@@ -26,6 +27,7 @@ All notable changes to this project will be documented in this file.
 
 * FormsScreenlet - Create an abstract OptionsField type as a base class of fields that select options
 * Create a ThemeUtil class to help with custom themes
+* FormsScreenlet changes to adapt to API
 
 ### Bugs
 
