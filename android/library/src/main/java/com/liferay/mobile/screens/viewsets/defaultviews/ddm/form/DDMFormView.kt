@@ -193,6 +193,10 @@ class DDMFormView @JvmOverloads constructor(
 		sendEvent(Event.CustomEvent(customEvent.name, this, thing))
 	}
 
+    override fun sendSubmitEvent(thing: Thing) {
+        screenlet?.onFormSubmit(thing)
+    }
+
 	override fun showErrorMessage(exception: Exception?) {
 		val icon = R.drawable.default_error_icon
 		val backgroundColor = ContextCompat.getColor(context, R.color.lightRed)

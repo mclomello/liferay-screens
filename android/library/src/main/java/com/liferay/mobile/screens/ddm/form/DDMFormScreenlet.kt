@@ -18,6 +18,7 @@ import android.content.Context
 import android.content.res.TypedArray
 import android.util.AttributeSet
 import android.widget.FrameLayout
+import com.liferay.apio.consumer.model.Thing
 import com.liferay.mobile.screens.R
 import com.liferay.mobile.screens.ddl.form.util.FormConstants
 import com.liferay.mobile.screens.thingscreenlet.screens.ThingScreenlet
@@ -31,7 +32,7 @@ class DDMFormScreenlet @JvmOverloads constructor(
 	context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : FrameLayout(context, attrs, defStyleAttr) {
 
 	var formInstanceId: Long?
-	var listener: DDMFormListener? = null
+	var ddmFormListener: DDMFormListener? = null
 	val screenlet: ThingScreenlet
 
 	init {
@@ -52,10 +53,10 @@ class DDMFormScreenlet @JvmOverloads constructor(
 
 			screenlet.load(url, Detail, onSuccess = { thingScreenlet ->
 				(thingScreenlet.baseView as? DDMFormView)?.let { ddmFormView ->
-					listener?.onFormLoaded(ddmFormView.formInstance)
+                    ddmFormListener?.onFormLoaded(ddmFormView.formInstance)
 				}
 			}, onError = {
-				listener?.onError(it)
+                ddmFormListener?.onError(it)
 			})
 		}
 	}
@@ -64,4 +65,10 @@ class DDMFormScreenlet @JvmOverloads constructor(
 		val serverUrl = resources.getString(R.string.liferay_server)
 		return serverUrl + String.format(FormConstants.URL_TEMPLATE, formInstanceId)
 	}
+
+    fun setListener(listener: DDMFormListener) {
+        ddmFormListener = listener
+        screenlet?.setDDMFormListener(ddmFormListener)
+    }
+
 }

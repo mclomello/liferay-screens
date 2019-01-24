@@ -15,8 +15,6 @@
 package com.liferay.mobile.screens.thingscreenlet.screens
 
 import android.content.Context
-import android.os.Bundle
-import android.os.Parcel
 import android.os.Parcelable
 import android.util.AttributeSet
 import android.view.View
@@ -28,6 +26,7 @@ import com.liferay.apio.consumer.delegates.observe
 import com.liferay.apio.consumer.model.Thing
 import com.liferay.mobile.screens.R
 import com.liferay.mobile.screens.context.SessionContext
+import com.liferay.mobile.screens.ddm.form.DDMFormListener
 import com.liferay.mobile.screens.ddm.form.model.FormInstance
 import com.liferay.mobile.screens.thingscreenlet.extensions.inflate
 import com.liferay.mobile.screens.thingscreenlet.model.*
@@ -36,6 +35,7 @@ import com.liferay.mobile.screens.thingscreenlet.screens.events.Event
 import com.liferay.mobile.screens.thingscreenlet.screens.events.ScreenletEvents
 import com.liferay.mobile.screens.util.LiferayLogger
 import com.liferay.mobile.screens.thingscreenlet.screens.views.*
+import com.liferay.mobile.screens.viewsets.defaultviews.ddm.form.DDMFormView
 import okhttp3.HttpUrl
 
 open class BaseScreenlet @JvmOverloads constructor(
@@ -51,8 +51,9 @@ open class ThingScreenlet @JvmOverloads constructor(
 
 	open var scenario: Scenario = Detail
 
-	var screenletEvents: ScreenletEvents? = null
-	var savedInstanceState: ThingScreenletSavedState? = null
+    var ddmFormListener: DDMFormListener? = null
+    var savedInstanceState: ThingScreenletSavedState? = null
+    var screenletEvents: ScreenletEvents? = null
 
 	open var layoutIds: MutableMap<String, MutableMap<Scenario, Int>> = mutableMapOf(
 		"BlogPosting" to BlogPosting.DEFAULT_VIEWS,
@@ -115,6 +116,15 @@ open class ThingScreenlet @JvmOverloads constructor(
 		}
 	}
 
+    @JvmOverloads
+    fun setDDMFormListener(listener: DDMFormListener?) {
+        ddmFormListener = listener
+    }
+
+    fun onFormSubmit(thing: Thing) {
+        ddmFormListener?.onFormSubmitted(thing)
+    }
+
 	private fun getLayoutIdFor(thing: Thing?): Int? {
 		if (layoutId != 0) return layoutId
 
@@ -141,10 +151,10 @@ open class ThingScreenlet @JvmOverloads constructor(
 		val scenarioId = typedArray?.getString(R.styleable.ThingScreenlet_scenario) ?: ""
 
 		scenario = Scenario.stringToScenario?.invoke(scenarioId) ?: when (scenarioId.toLowerCase()) {
-			"detail", "" -> Detail
-			"row" -> Row
-			else -> Custom(scenarioId)
-		}
+            "detail", "" -> Detail
+            "row" -> Row
+            else -> Custom(scenarioId)
+        }
 	}
 
 	@Suppress("UNCHECKED_CAST")

@@ -18,10 +18,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
+import com.liferay.apio.consumer.model.Thing;
 import com.liferay.mobile.screens.base.ModalProgressBarWithLabel;
 import com.liferay.mobile.screens.ddm.form.DDMFormListener;
 import com.liferay.mobile.screens.ddm.form.DDMFormScreenlet;
 import com.liferay.mobile.screens.ddm.form.model.FormInstance;
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -72,4 +75,20 @@ public class DDMFormActivity extends ThemeActivity implements DDMFormListener {
         modalProgress.hide();
         info(getString(R.string.loading_form_error));
     }
+
+	@Override
+	public void onDraftSaved() {
+
+	}
+
+	@Override
+	public void onFormSubmitted(@NotNull Thing thing) {
+		// My code
+		System.out.println("My break");
+	}
+
+	@Override
+	public void onFormRecordLoaded() {
+
+	}
 }
